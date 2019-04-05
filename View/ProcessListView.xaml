@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="lab5.View.ProcessListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab5.View"
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="0" Grid.ColumnSpan="5" Background="Transparent" HorizontalScrollBarVisibility="Auto">
+            <DataGrid x:Name="ProcessesDataGrid" IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding ProcessesList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProcess, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=ProcessName}" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=ProcessID}" />
+                    <DataGridTextColumn Header="Active" Binding="{Binding Path=IsAlive }" />
+                    <DataGridTextColumn Header="CPU usage" Binding="{Binding Path=Cpu}" />
+                    <DataGridTextColumn Header="Memory usage" Binding="{Binding Path=RamSize}" />
+                    <DataGridTextColumn Header="% RAM" Binding="{Binding Path=RamPercents}" />
+                    <DataGridTextColumn Header="Threads amount" Binding="{Binding Path=ThreadsAmount}" />
+                    <DataGridTextColumn Header="Username" Binding="{Binding Path=ProcessOwner}" />
+                    <DataGridTextColumn Header="Path" Binding="{Binding Path=FileName}" />
+                    <DataGridTextColumn Header="Active since" Binding="{Binding Path=LaunchDateTime}" />
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Grid Background="#E6E6FA">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Threads"/>
+                            <DataGrid  RowBackground="#F0F8FF" x:Name="Threads" Grid.ColumnSpan="3" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="True"
+                                          ItemsSource="{Binding Path=Threads, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            </DataGrid>
+                            <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Modules"/>
+                            <DataGrid RowBackground="#F0F8FF" x:Name="Modules" Grid.ColumnSpan="3" Grid.Row="3" IsReadOnly="True" AutoGenerateColumns="True"
+                                          ItemsSource="{Binding Path=Modules, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            </DataGrid>
+                        </Grid>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </ScrollViewer>
+        <Button Grid.Row="1" Grid.Column="3" Margin="15, 10" Content="Kill" Command="{Binding KillProcessCommand}"/>
+        <Button Grid.Row="1" Grid.Column="0" Margin="15, 10" Content="Go to folder" Command="{Binding Path=FolderCommand}"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="15,10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedItem="{Binding SelectedProperty}" Width="175" Height="26"  >
+            <ComboBoxItem Content="Name"></ComboBoxItem>
+            <ComboBoxItem Content="ID"></ComboBoxItem>
+            <ComboBoxItem Content="Active"></ComboBoxItem>
+            <ComboBoxItem Content="CPU"></ComboBoxItem>
+            <ComboBoxItem Content="RAM, MB"></ComboBoxItem>
+            <ComboBoxItem Content="RAM, %"></ComboBoxItem>
+            <ComboBoxItem Content="Threads"></ComboBoxItem>
+            <ComboBoxItem Content="User"></ComboBoxItem>
+            <ComboBoxItem Content="Path"></ComboBoxItem>
+            <ComboBoxItem Content="LaunchTime"></ComboBoxItem>
+        </ComboBox>
+        <Button Grid.Row="1" Grid.Column="2" Margin="15, 10" Content="Sort" Command="{Binding Path=SortCommand}"/>
+    </Grid>
+</UserControl>
