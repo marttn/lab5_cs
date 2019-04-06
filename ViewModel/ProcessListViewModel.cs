@@ -204,8 +204,10 @@ namespace lab5.ViewModel
         {
             try
             {
-                Regex regex = new Regex(@"\\(\w*\.*_*\d*){1,}\.exe");
+                //(\w*\.*_*\d*)
+                Regex regex = new Regex(@"\\(\w*\.*_*\d*)+\.exe");
                 string path = regex.Replace(SelectedProcess.FileName, "");
+              //  MessageBox.Show(path);
                 Process.Start(path);
             }
                 catch (Exception e)

@@ -1,4 +1,5 @@
 ﻿using lab5.ViewModel;
+using System;
 using System.Windows.Controls;
 
 namespace lab5.View
@@ -13,6 +14,6 @@ namespace lab5.View
             InitializeComponent();
             DataContext = new ProcessListViewModel();
         }
-
+        
     }
 }

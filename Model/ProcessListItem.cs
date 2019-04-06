@@ -24,7 +24,7 @@ namespace lab5.Model
         public string ProcessName { get; }
         public double Cpu { get; set; }
         public double RamSize { get; set; }
-        public double RamPercents { get; set; }
+        public double RamPercents { get; private set; }
         public bool IsAlive { get; }
         public string FileName { get; }
         public string ProcessOwner { get; }

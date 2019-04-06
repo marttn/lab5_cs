@@ -14,7 +14,7 @@ namespace lab5.Tools.Managers
         private static readonly Thread UpdateListThread;
         private static readonly Thread UpdateMetadataThread;
 
-        internal static Dictionary<int, ProcessListItem> Processes { get; set; }
+        internal static Dictionary<int, ProcessListItem> Processes { get; private set; }
 
         static ProcessesManager()
         {
